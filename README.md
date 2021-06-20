@@ -11,7 +11,7 @@ With git clone \ Com git clone
 ### `git clone https://github.com/JeanLiima/Altimus.git`
 
 Or downloading .zip \ Ou baixando .zip
-### `[https://github.com/JeanLiima/Altimus/archive/refs/heads/master.zip](https://github.com/JeanLiima/Altimus/archive/refs/heads/master.zip)`
+### [Download here](https://github.com/JeanLiima/Altimus/archive/refs/heads/master.zip)
 
 ### Starting \ Iniciando
 
@@ -43,6 +43,6 @@ O seu app está pronto para produção!
 ## TEST / TESTE
 
 You can test here: / Você pode testar aqui:
-### `[http://jeanlima.dev.br/altimus/](http://jeanlima.dev.br/altimus/)`
+### [jeanlima.dev.br/altimus/](http://jeanlima.dev.br/altimus/)
 
 Ps.: Password to logon is 'admin'. / Senha para logar é 'admin'.
