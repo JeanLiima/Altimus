@@ -15,7 +15,7 @@ export const Navigation = () => {
           label: "Home",
           icon: "pi pi-fw pi-chart-bar",
           command: () => {
-            history.push("/home");
+            history.push("/altimus");
           },
         },
         {

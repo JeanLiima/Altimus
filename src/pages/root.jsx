@@ -11,8 +11,8 @@ const RootPages = () => (
     <StoreProvider>
       <Switch>
         <Route path="/login" component={LoginPage} />
-        <RoutesPrivate path="/home" component={HomePage} />
-        <Route path="/veiculos" component={VeiculosPage} />
+        <RoutesPrivate path="/altimus" component={HomePage} />
+        <RoutesPrivate path="/veiculos" component={VeiculosPage} />
       </Switch>
     </StoreProvider>
   </Router>

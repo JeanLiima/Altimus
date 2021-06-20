@@ -49,7 +49,7 @@ const UserLogin = () => {
 
     if (token) {
       setToken(token);
-      return history.push("/home");
+      return history.push("/altimus");
     } else if (erros) {
       setErros(erros);
       toast.current.show({
