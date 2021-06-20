@@ -13,13 +13,14 @@ import { InputText } from "primereact/inputtext";
 import { InputMask } from "primereact/inputmask";
 import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
+import { InputSwitch } from "primereact/inputswitch";
 
 function initialState() {
   return [
     {
       id: "cy0FX",
       modelo: "Argo",
-      placa: "abc-1234",
+      placa: "ABC-1234",
       marca: "Volskwagen",
       preco: 30000,
       ano: "2019",
@@ -29,7 +30,7 @@ function initialState() {
     {
       id: "as83A",
       modelo: "308 GTSi",
-      placa: "cba-4321",
+      placa: "CBA-4321",
       marca: "Ferrari",
       preco: 630000,
       ano: "2019",
@@ -39,7 +40,7 @@ function initialState() {
     {
       id: "o04WE",
       modelo: "Sandero",
-      placa: "aaa-1111",
+      placa: "AAA-1111",
       marca: "Fiat",
       preco: 64000,
       ano: "2021",
@@ -52,6 +53,7 @@ function initialState() {
 export const GridPage = () => {
   const [products, setProducts] = useState(initialState);
   const [productDialog, setProductDialog] = useState(false);
+  const [checked, setChecked] = useState(true);
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
   const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
   const [product, setProduct] = useState({});
@@ -157,6 +159,7 @@ export const GridPage = () => {
         });
       } else {
         _product.id = createId();
+        _product.placa = _product.placa.toUpperCase();
         _products.push(_product);
         toast.current.show({
           severity: "success",
@@ -291,9 +294,9 @@ export const GridPage = () => {
     );
   };
 
-  const codigoBody = (rowData) => {
-    return <>{rowData.id}</>;
-  };
+  // const codigoBody = (rowData) => {
+  //   return <>{rowData.id}</>;
+  // };
 
   const modeloBody = (rowData) => {
     return <>{rowData.modelo}</>;
@@ -429,12 +432,12 @@ export const GridPage = () => {
               selectionMode="multiple"
               headerStyle={{ width: "3rem" }}
             ></Column>
-            <Column
+            {/* <Column
               field="id"
               header="Código"
               sortable
               body={codigoBody}
-            ></Column>
+            ></Column> */}
             <Column
               field="placa"
               style={{ textAlign: "center" }}
@@ -448,17 +451,17 @@ export const GridPage = () => {
               body={marcaBody}
             ></Column>
             <Column
+              field="ano"
+              header="Ano (Modelo)"
+              sortable
+              body={anoBody}
+              style={{ textAlign: "center" }}
+            ></Column>
+            <Column
               field="modelo"
               header="Modelo"
               sortable
               body={modeloBody}
-            ></Column>
-            <Column
-              field="ano"
-              header="Ano"
-              sortable
-              body={anoBody}
-              style={{ textAlign: "center" }}
             ></Column>
             <Column
               field="preco"
@@ -502,20 +505,33 @@ export const GridPage = () => {
               )}
             </div>
             <div className="p-formgrid p-grid">
-              <div className="p-field p-col">
-                <label htmlFor="placa">Placa</label>
-                <InputMask
-                  id="placa"
-                  mask="aa*-9999"
-                  value={product.placa}
-                  onChange={(e) => onInputChange(e, "placa")}
-                  required
-                  autoFocus
-                  className={classNames(
-                    { "p-invalid": submitted && !product.placa },
-                    "p-text-uppercase"
-                  )}
-                />
+              <div className="p-field p-col-7">
+                <label htmlFor="placa" className="p-ml-1">
+                  Placa {checked ? "Mercosul" : ""}
+                </label>
+                <div className="p-formgrid p-grid">
+                  <div className="p-col-4 p-text-center p-ml-1">
+                    <InputSwitch
+                      checked={checked}
+                      onChange={(e) => setChecked(e.value)}
+                    />
+                    <small>Mercosul</small>
+                  </div>
+                  <div className="p-col">
+                    <InputMask
+                      id="placa"
+                      mask={checked ? "aaa9a99" : "aaa-9999"}
+                      value={product.placa}
+                      onChange={(e) => onInputChange(e, "placa")}
+                      required
+                      autoFocus
+                      className={classNames(
+                        { "p-invalid": submitted && !product.placa },
+                        "p-text-uppercase"
+                      )}
+                    />
+                  </div>
+                </div>
                 {submitted && !product.placa && (
                   <small className="p-invalid">
                     Placa do veículo é necessário.
@@ -553,6 +569,9 @@ export const GridPage = () => {
                     value="Volskwagen"
                     onChange={onMarcaChange}
                     checked={product.marca === "Volskwagen"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca1">Volskwagen</label>
                 </div>
@@ -563,6 +582,9 @@ export const GridPage = () => {
                     value="Fiat"
                     onChange={onMarcaChange}
                     checked={product.marca === "Fiat"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca2">Fiat</label>
                 </div>
@@ -573,6 +595,9 @@ export const GridPage = () => {
                     value="Ford"
                     onChange={onMarcaChange}
                     checked={product.marca === "Ford"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca3">Ford</label>
                 </div>
@@ -583,6 +608,9 @@ export const GridPage = () => {
                     value="Honda"
                     onChange={onMarcaChange}
                     checked={product.marca === "Honda"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca4">Honda</label>
                 </div>
@@ -593,6 +621,9 @@ export const GridPage = () => {
                     value="Chevrolet"
                     onChange={onMarcaChange}
                     checked={product.marca === "Chevrolet"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca5">Chevrolet</label>
                 </div>
@@ -603,6 +634,9 @@ export const GridPage = () => {
                     value="Citroën"
                     onChange={onMarcaChange}
                     checked={product.marca === "Citroën"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca6">Citroën</label>
                 </div>
@@ -613,6 +647,9 @@ export const GridPage = () => {
                     value="Audi"
                     onChange={onMarcaChange}
                     checked={product.marca === "Audi"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca7">Audi</label>
                 </div>
@@ -623,6 +660,9 @@ export const GridPage = () => {
                     value="BMW"
                     onChange={onMarcaChange}
                     checked={product.marca === "BMW"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca8">BMW</label>
                 </div>
@@ -633,6 +673,9 @@ export const GridPage = () => {
                     value="Ferrari"
                     onChange={onMarcaChange}
                     checked={product.marca === "Ferrari"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca9">Ferrari</label>
                 </div>
@@ -643,9 +686,19 @@ export const GridPage = () => {
                     value="Bugatti"
                     onChange={onMarcaChange}
                     checked={product.marca === "Bugatti"}
+                    className={classNames({
+                      "p-invalid": submitted && !product.marca,
+                    })}
                   />
                   <label htmlFor="marca10">Bugatti</label>
                 </div>
+              </div>
+              <div className="p-text-center">
+                {submitted && !product.marca && (
+                  <small className="p-invalid">
+                    Marca do veículo é necessária.
+                  </small>
+                )}
               </div>
             </div>
             <div className="p-field">
